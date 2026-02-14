@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Will You Be My Valentine? 💖</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        body {
+            text-align: center;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* justifyContent: center;  Optional: centers vertically too */
+        }
+
+        h1 {
+            margin-top: 80px;
+            color: white;
+            font-size: 40px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 20px;
+            margin: 20px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #yesBtn {
+            background: #ff004c;
+            color: white;
+        }
+
+        #noBtn {
+            background: black;
+            color: white;
+            /* position: absolute;  Removed to fix mobile layout */
+        }
+
+        #message {
+            font-size: 28px;
+            margin-top: 30px;
+            color: white;
+            display: none;
+            padding: 0 20px;
+        }
+
+        #cat {
+            width: 200px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 28px;
+                margin-top: 50px;
+            }
+
+            button {
+                padding: 12px 30px;
+                font-size: 18px;
+                margin: 10px;
+            }
+
+            #message {
+                font-size: 20px;
+            }
+
+            #cat {
+                width: 150px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Hey My Love Jasmine</h1>
+    <h1>Will You Be My Valentine? 💖</h1>
+
+    <button id="yesBtn" onclick="sayYes()">YES 💕</button>
+    <button id="noBtn">NO 😜</button>
+
+    <div id="message">
+        Yaaay! 😍 You just made me the happiest person alive 💖<br>
+        I promise to love you forever and ever 🥰✨
+    </div>
+
+    <img id="cat" src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif">
+
+    <audio id="bgMusic" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const noBtn = document.getElementById("noBtn");
+        const yesBtn = document.getElementById("yesBtn");
+        const music = document.getElementById("bgMusic");
+
+        // NO button bhaag jayega 😆
+        // NO button bhaag jayega 😆
+        function moveNoButton(e) {
+            if (e && e.type === 'touchstart') {
+                e.preventDefault(); // Prevent click on touch
+            }
+
+            // Make sure button can move
+            if (noBtn.style.position !== 'absolute') {
+                noBtn.style.position = 'absolute';
+            }
+
+            const buttonWidth = noBtn.offsetWidth;
+            const buttonHeight = noBtn.offsetHeight;
+
+            // Calculate random position within viewport, keeping button fully visible
+            let x = Math.random() * (window.innerWidth - buttonWidth);
+            let y = Math.random() * (window.innerHeight - buttonHeight);
+
+            // Ensure x and y are not negative
+            x = Math.max(0, x);
+            y = Math.max(0, y);
+
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
+        }
+
+        noBtn.addEventListener("mouseover", moveNoButton);
+        noBtn.addEventListener("touchstart", moveNoButton, { passive: false }); // passive: false needed for preventDefault
+        noBtn.addEventListener("click", function (e) { e.preventDefault(); }); // Ensure click is blocked
+
+        const messages = [
+            "Yaaay! 😍 You just made me the happiest person alive 💖<br>I promise to love you forever and ever 🥰✨",
+            "You are my sunshine on a cloudy day ☀️<br>I love you so much! 💕",
+            "Every moment with you is a blessing 🌹<br>Thank you for being mine! ❤️",
+            "I love you more than words can say 💖<br>You are my everything! 🌎",
+            "You are the best thing that ever happened to me 🥰<br>Forever yours! 💑",
+            "My heart belongs to you! ❤️<br>Can't wait to spend my life with you! ✨",
+            "You complete me! 💕<br>I am so lucky to have you! 😍",
+            "You are the peanut butter to my jelly! 🥜🍇<br>We belong together! ❤️",
+            "My heart skips a beat every time I see you! 💓<br>You are stunning! ✨",
+            "You are my favorite notification! 📱💖<br>Texting you makes my day! 😊",
+            "I love you to the moon and back! 🌙✨<br>You are my universe! 🌌",
+            "You are the reason I smile every day! 😊❤️<br>My happiness is you! 💕",
+            "Thinking of you keeps me awake. Dreaming of you keeps me asleep. Being with you keeps me alive. 💭💑",
+            "I never knew what love was until I met you. 💘<br>You taught me how to love! ❤️",
+            "You are my today and all of my tomorrows. 📅💞<br>Forever isn't long enough with you! ⏳",
+            "I love you more than pizza! (And that's saying a lot) 🍕😋<br>But seriously, you're the best! ❤️",
+            "You are my happy place. 🏡❤️<br>Wherever you are is home to me! 🏠",
+            "I fell in love with you because of a million tiny things you never knew you were doing. ✨",
+            "You make my heart smile. 😊💓<br>I love seeing you happy! 😍",
+            "I want to grow old with you. 👵👴❤️<br>A lifetime with you is my dream! ✨",
+            "Your voice is my favorite sound. 🎶💕<br>I could listen to you forever! 🎧",
+            "You are my greatest adventure. 🌍✈️<br>Let's explore the world together! 🗺️",
+            "I love you, not only for what you are, but for what I am when I am with you. 💑",
+            "You are the missing piece to my puzzle. 🧩❤️<br>We fit perfectly together! ✨",
+            "Every love story is beautiful, but ours is my favorite. 📖💖<br>Our story is just beginning! 🖋️",
+            "I choose you. And I'll choose you over and over and over. Without pause, without a doubt, in a heartbeat. I'll keep choosing you. 💍❤️",
+            "You are my dream come true. 🌠✨<br>I never want to wake up! 😴"
+        ];
+
+        function sayYes() {
+            const messageDiv = document.getElementById("message");
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            messageDiv.innerHTML = randomMessage;
+            messageDiv.style.display = "block";
+
+            document.getElementById("cat").style.display = "block";
+            music.play();
+
+            // Confetti effect 🎉
+            for (let i = 0; i < 200; i++) {
+                let confetti = document.createElement("div");
+                confetti.style.position = "absolute";
+                confetti.style.width = "10px";
+                confetti.style.height = "10px";
+                confetti.style.background = "white";
+                confetti.style.left = Math.random() * window.innerWidth + "px";
+                confetti.style.top = "-10px";
+                confetti.style.animation = "fall 3s linear";
+                document.body.appendChild(confetti);
+            }
+        }
+
+        // Confetti animation
+        const style = document.createElement('style');
+        style.innerHTML = `
+    @keyframes fall {
+        to {
+            transform: translateY(100vh);
+        }
+    }`;
+        document.head.appendChild(style);
+    </script>
+
+</body>
+
+</html>
